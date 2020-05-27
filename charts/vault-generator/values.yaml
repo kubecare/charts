@@ -7,8 +7,6 @@ bankVaultsImage: banzaicloud/bank-vaults:1.1.0
 
 dynamodb:
   table: vault
-  writeCapacity: 5
-  readCapacity: 15
   region: eu-west-1
 
 serviceMonitor:
