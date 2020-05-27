@@ -1,0 +1,22 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: vault
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  rules:
+  - host: {{ .Values.ingress.hostname }}
+    http:
+      paths:
+      - backend:
+          serviceName: vault
+          servicePort: api-port
+  tls:
+  - hosts:
+    - {{ .Values.ingress.hostname }}
+    secretName: vault-tls
+{{- end }}

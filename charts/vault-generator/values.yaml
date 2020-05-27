@@ -1,0 +1,19 @@
+name: vault
+
+# hostname: # required
+
+dynamodb:
+  table: vault
+  writeCapacity: 5
+  readCapacity: 15
+  region: eu-west-1
+
+serviceMonitor:
+  enabled: false
+
+ingress:
+  enabled: true
+  hostname: example.kubecare.com
+  annotations:
+    kubernetes.io/ingress.class: nginx-public
+    kubernetes.io/tls-acme: "true"

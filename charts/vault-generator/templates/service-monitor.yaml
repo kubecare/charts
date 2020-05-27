@@ -1,0 +1,18 @@
+{{- if .Values.ServiceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    monitoring: prometheus
+  name: vault
+spec:
+  endpoints:
+  - path: /metrics
+    port: prometheus
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+      vault_cr: {{ .Values.name }}
+{{- end }}

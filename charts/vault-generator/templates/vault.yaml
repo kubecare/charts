@@ -1,0 +1,55 @@
+apiVersion: vault.banzaicloud.com/v1alpha1
+kind: Vault
+metadata:
+  name: {{ .Values.name }}
+spec:
+  annotations:
+    iam.amazonaws.com/role: k8s-vault
+
+  serviceAccount: vault
+  serviceType: ClusterIP
+  size: {{ .Values.size }}
+
+  config:
+    api_addr: {{ .Values.hostname }}
+    default_lease_ttl: 8h
+    max_lease_ttl: 720h
+    ui: true
+
+    listener:
+      tcp:
+        address: 0.0.0.0:8200
+        tls_disable: true
+
+    storage:
+      dynamodb:
+        ha_enabled: "true"
+        write_capacity: {{ .Values.dynamodb.write_capacity }}
+        read_capacity: {{ .Values.dynamodb.readCapacity}}
+        region: {{ .Values.dynamodb.region }}
+        table: {{ .Values.dynamodb.table }}
+
+    telemetry:
+      statsd_address: localhost:9125
+
+  externalConfig:
+    auth:
+    - type: userpass
+
+    policies:
+    - name: admin
+      rules: |
+        path "*" {
+          capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+        }
+
+    secrets:
+    - description: General secrets.
+      options:
+        version: 1
+      path: secret
+      type: kv
+
+  unsealConfig:
+    kubernetes:
+      secretNamespace: {{ .Release.Namespace }}
