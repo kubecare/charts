@@ -1,5 +1,5 @@
 name: vault
-
+size: 1
 # hostname: # required
 
 dynamodb:
