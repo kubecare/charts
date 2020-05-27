@@ -6,6 +6,9 @@ spec:
   annotations:
     iam.amazonaws.com/role: k8s-vault
 
+  image: {{ .Values.image }}
+  bankVaultsImage: {{ .Values.bankVaultsImage }}
+
   serviceAccount: vault
   serviceType: ClusterIP
   size: {{ .Values.size }}
