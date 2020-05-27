@@ -24,8 +24,8 @@ spec:
     storage:
       dynamodb:
         ha_enabled: "true"
-        write_capacity: {{ .Values.dynamodb.write_capacity }}
-        read_capacity: {{ .Values.dynamodb.readCapacity}}
+        write_capacity: !!int {{ .Values.dynamodb.write_capacity }}
+        read_capacity: !!int {{ .Values.dynamodb.readCapacity }}
         region: {{ .Values.dynamodb.region }}
         table: {{ .Values.dynamodb.table }}
 
