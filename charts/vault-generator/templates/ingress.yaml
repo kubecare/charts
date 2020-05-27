@@ -9,7 +9,7 @@ metadata:
   {{- end }}
 spec:
   rules:
-  - host: {{ .Values.ingress.hostname }}
+  - host: {{ .Values.hostname }}
     http:
       paths:
       - backend:
@@ -17,6 +17,6 @@ spec:
           servicePort: api-port
   tls:
   - hosts:
-    - {{ .Values.ingress.hostname }}
+    - {{ .Values.hostname }}
     secretName: vault-tls
 {{- end }}

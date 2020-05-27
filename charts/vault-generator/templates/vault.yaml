@@ -31,6 +31,7 @@ spec:
 
     telemetry:
       statsd_address: localhost:9125
+      disable_hostname: true
 
   externalConfig:
     auth:
